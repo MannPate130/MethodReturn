@@ -33,8 +33,8 @@ namespace MethodReturn
             int num1 = Convert.ToInt16(q1Num1Input.Text);
             int num2 = Convert.ToInt16(q1Num2Input.Text);
            
-            Add(num1, num2);
-
+            int answer = Add(num1, num2);
+            q1Output.Text = $"{num1} + {num2} = {answer}";
 
 
             //2.  Get values for question 2 and call the Area method. Accept the
@@ -48,7 +48,11 @@ namespace MethodReturn
             //    Input: 6, 2
             //    The area is 18 units squared
 
+            int Length = Convert.ToInt16(lengthInput.Text);
+            int Width = Convert.ToInt16(widthInput.Text);
 
+            int areaAnswer = Area(Length, Width);
+            q2Output.Text = $"{Length} x {Width} = {areaAnswer}";
 
             //3.  Get a value for question 3 and call the PrintPrice method. Accept the
             //    returned value and then display it.
@@ -64,6 +68,13 @@ namespace MethodReturn
             //    Input: 200
             //    The total price is $100.00
 
+            int print = Convert.ToUInt16(copiesInput.Text);
+            double ten = print * 1.00;
+            double fifty = print * 0.75;
+            double hundred = print * 0.65;
+            double overHundred = print * 0.50;
+
+            PrintPrice( print, ten, fifty, hundred, overHundred);
 
 
         }
@@ -72,11 +83,11 @@ namespace MethodReturn
         //    adds them together, and then returns the result back to the method call.       
 
 
-        public void Add(int x, int y)
+        public int Add(int x, int y)
         {
             int sum = x + y;
-
-            q1Output.Text = $"{x} + {y} = {sum}";
+            return sum;
+            
         }
 
 
@@ -84,7 +95,12 @@ namespace MethodReturn
         // 2. Create a method called Area, that accepts 2 int parameters, (x and y),
         //    uses them to determine the area of a rectangle , and then returns the 
         //    result back to the method call.
-
+        public int Area(int x, int y)
+        {
+            int area = x * y;
+            return area;
+            
+        }
 
 
         // 3. Create a method called PrintPrice, that accepts 1 int parameter, (prints),
@@ -95,7 +111,25 @@ namespace MethodReturn
         //    11 - 50 prints:  $0.75/print
         //    51 - 100 prints:  $0.65/print
         //    101 or over:  $0.50/print
-
+        public void PrintPrice(int print, double ten, double fifty, double hundred, double overHundred)
+        {
+            if (print < 11 )
+            {
+                q3Output.Text = $"The total price is {ten.ToString("C")}";
+            }
+            else if (print < 51 && print > 11)
+            {
+                q3Output.Text = $"The total price is {fifty.ToString("C")}";
+            }
+            else if (print < 101 && print > 51)
+            {
+                q3Output.Text = $"The total price is {hundred.ToString("C")}";
+            }
+            else if (print > 101)
+            {
+                q3Output.Text = $"The total price is {overHundred.ToString("C")}";
+            }
+        }
 
     }
 }
